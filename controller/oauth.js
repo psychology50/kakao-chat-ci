@@ -19,40 +19,19 @@ export const githubLoginPage = (req, res) => {
 export const githubLoginWithServer = async (req, res) => {
     console.log("log : start githubLoginWithServer");
     const { code } = req.query;
-    const baseUrl = "https://github.com/login/oauth/access_token";
+    const baseUrl = "http://localhost:8081/api/v1/users/login";
     const body = {
         client_id: process.env.GITHUB_CLIENT,
         client_secret: process.env.GITHUB_SECRET,
         code,
     }
-    const finalUrl = baseUrl;
 
     try {
-        const { data: requestToken } = await axios.post(finalUrl, body, {
+        const { data: request } = await axios.post(baseUrl, body, {
           headers: { Accept: "application/json" },
         });
-        const { access_token } = requestToken;
-        console.log("log : access_token : " + access_token);
-    
-        const apiUrl = "https://api.github.com";
-        const { data: userdata } = await axios.get(`${apiUrl}/user`, {
-          headers: { Authorization: `token ${access_token}` },
-        }); 
-    
-        const { data: emailDataArr } = await axios.get(`${apiUrl}/user/emails`, {
-          headers: { Authorization: `token ${access_token}` },
-        });
-    
-        const { email } = emailDataArr.find(
-          (emailObj) => emailObj.primary === true && emailObj.verified === true,
-        );
-    
-        const { login: nickname, id, avatar_url: avatarUrl } = userdata;
 
-        console.log("log : nickname : " + nickname);
-        console.log("log : id : " + id);
-        console.log("log : avatarUrl : " + avatarUrl);
-        console.log("log : email : " + email);
+        console.log("log : request : " + request);
 
         return res.status(201).redirect("/");
     } catch (err) {
