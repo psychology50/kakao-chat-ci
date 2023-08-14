@@ -1,52 +1,61 @@
 import axios from "axios";
 
 const getFriends = (access_token) => {
-    console.log("[INFO] : getFriend");
-  
-    const baseUrl = "https://kapi.kakao.com/v1/api/talk/friends";
-    const headers = {
-      "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
-      "Authorization": `Bearer ${access_token}`,
-    };
-  
-    axios.get(baseUrl, { headers }).then((res) => {
+  console.log("[INFO] : getFriend");
+
+  const baseUrl = "https://kapi.kakao.com/v1/api/talk/friends";
+  const headers = {
+    "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+    Authorization: `Bearer ${access_token}`,
+  };
+
+  axios
+    .get(baseUrl, { headers })
+    .then((res) => {
       console.log(res.data);
-    }).catch((err) => {
+    })
+    .catch((err) => {
       console.log(err);
     });
-}
+};
 
 const sendMessage = (access_token) => {
-    console.log("[INFO] : sendMessage");
-  
-    const baseUrl = "https://kapi.kakao.com/v2/api/talk/memo/send";
-    const headers = {
-      "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
-      "Authorization": `Bearer ${access_token}`,
-    };
-    const body = {
-      template_id : process.env.KAKAO_TEMPLATE_ID,
-      template_args : {
-        "title" : "제목",
-        "desc" : "설명",
-      }
-    };
+  console.log("[INFO] : sendMessage");
+  const baseUrl = "https://kapi.kakao.com/v2/api/talk/memo/send";
+  const headers = {
+    "Content-Type": "application/x-www-form-urlencoded",
+    Authorization: `Bearer ${access_token}`,
+  };
 
-    // TEST용 : 내 계정 정보 받아오는 거 확인
-    console.log("[INFO] : getProfile");
-    axios.get("https://kapi.kakao.com/v1/api/talk/profile", { headers }).then((res) => {
+  // 템플릿 메시지, args를 string으로 변환해야 함
+  const body = {
+    template_id: process.env.KAKAO_TEMPLATE_ID,
+    template_args: JSON.stringify({
+      title: "hello world",
+    }),
+  };
+
+  // TEST용 : 내 계정 정보 받아오는 거 확인
+  console.log("[INFO] : getProfile");
+  axios
+    .get("https://kapi.kakao.com/v1/api/talk/profile", { headers })
+    .then((res) => {
       console.log(res.data);
-    }).catch((err) => {
+    })
+    .catch((err) => {
       console.log(err);
     });
-  
-    getFriends(access_token);
-  
-    axios.post(baseUrl, body, { headers }).then((res) => {
+
+  getFriends(access_token);
+
+  axios
+    .post(baseUrl, body, { headers })
+    .then((res) => {
       console.log(res.data);
-    }).catch((err) => {
+    })
+    .catch((err) => {
       console.log(err);
     });
-  }
+};
 
 export default sendMessage;
