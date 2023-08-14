@@ -38,4 +38,5 @@ async function crawlKakaoLoginPage() {
   }
 }
 
-crawlKakaoLoginPage();
+// crawlKakaoLoginPage();
+export default crawlKakaoLoginPage;
