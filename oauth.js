@@ -1,9 +1,9 @@
 import express from 'express';
-import { githubLoginPage, githubLoginWithServer } from './controller/oauth.js';
+import { kakaoLoginPage, kakaoLoginWithServer } from './controller/oauth.js';
 
 const oauthRouter = express.Router();
 
-oauthRouter.get("/github", githubLoginPage);
-oauthRouter.get("/github/callback", githubLoginWithServer);
+oauthRouter.get("/kakao", kakaoLoginPage);
+oauthRouter.get("/kakao/callback", kakaoLoginWithServer);
 
 export default oauthRouter;
