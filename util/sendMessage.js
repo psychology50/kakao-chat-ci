@@ -31,14 +31,6 @@ const sendMessage = (access_token) => {
         "desc" : "설명",
       }
     };
-
-    // TEST용 : 내 계정 정보 받아오는 거 확인
-    console.log("[INFO] : getProfile");
-    axios.get("https://kapi.kakao.com/v1/api/talk/profile", { headers }).then((res) => {
-      console.log(res.data);
-    }).catch((err) => {
-      console.log(err);
-    });
   
     getFriends(access_token);
   

@@ -16,7 +16,6 @@ export const kakaoLoginPage = (req, res) => {
   console.log("[INFO] : end githubLoginPage");
 
   crawlKakaoLoginPage(finalUrl);
-  // return res.redirect(finalUrl);
 };
 
 export const kakaoLoginWithServer = async (req, res) => {
