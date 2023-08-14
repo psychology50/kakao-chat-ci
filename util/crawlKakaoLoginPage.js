@@ -1,12 +1,13 @@
 import puppeteer from "puppeteer";
 
 async function crawlKakaoLoginPage(finalUrl) {
+  let page;
   try {
     console.log("[INFO] : start puppeteer");
     const browser = await puppeteer.launch({
       headless: false,
     });
-    const page = await browser.newPage();
+    page = await browser.newPage();
     console.log("[INFO] : start LoginPage");
     await page.goto(finalUrl);
 
@@ -48,6 +49,7 @@ async function crawlKakaoLoginPage(finalUrl) {
   } catch (error) {
     console.log("[ERROR] : " + error);
   }
+  if (page) page.close();
 }
 
 export default crawlKakaoLoginPage;
