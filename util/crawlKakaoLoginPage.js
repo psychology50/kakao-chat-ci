@@ -49,7 +49,10 @@ async function crawlKakaoLoginPage(finalUrl) {
     if (page) page.close();
     return;
   } catch (error) {
-    console.log("[ERROR] : page html");
+    console.log("[ERROR] : fail login");
+    console.log("page url =>");
+    console.log(page.url());
+    console.log("page html =>");
     console.log(await page.content());
     if (page) page.close();
     throw error;
