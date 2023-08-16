@@ -1,7 +1,7 @@
 import axios from "axios";
 import crawlKakaoLoginPage from "../util/crawlKakaoLoginPage.js";
 
-export const kakaoLoginPage = (req, res) => {
+export const kakaoLoginPage = async (req, res) => {
   console.log("[INFO] : start LoginPage");
   const baseUrl = "https://kauth.kakao.com/oauth/authorize";
   const config = {
@@ -15,7 +15,11 @@ export const kakaoLoginPage = (req, res) => {
   console.log("[INFO] : finalUrl : " + finalUrl);
   console.log("[INFO] : end githubLoginPage");
 
-  crawlKakaoLoginPage(finalUrl);
+  try {
+    crawlKakaoLoginPage(finalUrl);
+  } catch (error) {
+    return res.redirect("/exit/error?message=" + encodeURIComponent(error));
+  }
 };
 
 export const kakaoLoginWithServer = async (req, res) => {
