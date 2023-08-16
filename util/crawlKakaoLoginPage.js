@@ -49,8 +49,10 @@ async function crawlKakaoLoginPage(finalUrl) {
     if (!process.env.KAKAO_REDIRECT_URL.includes(page.url())) {
       // 동의가 필요한 경우 동의 페이지로 이동
       console.log("[INFO] : need agree");
-      await page.waitForSelector("#agreeAll");
-      await page.click("#agreeAll");
+      try {
+        await page.waitForSelector("#agreeAll", { timeout: 5000 });
+        await page.click("#agreeAll");
+      } catch (error) {}
       await page.waitForSelector("button[type=submit]");
       console.log("[INFO] : click submit");
       await Promise.all([
