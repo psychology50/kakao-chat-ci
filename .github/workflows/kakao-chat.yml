@@ -1,0 +1,47 @@
+name: kakao-chat-ci
+run-name: Deploy by @${{ github.actor }} 
+
+on: 
+    push: 
+        branches: 
+            - main
+            - develop
+    pull_request:
+        types: [opened, synchronize, reopened]
+    issue_comment:
+        types: [created, edited]
+    pull_request_review:
+        types: [submitted]
+    pull_request_review_comment:
+        types: [created, edited]
+
+jobs:
+    build-and-notify:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+            
+            - name: Set up node
+              uses: actions/setup-node@v3
+              with:
+                node-version: 14
+            
+            - name: Install dependencies
+              run: npm install
+            
+            - name: run kakao-chat
+              run: node app.js
+              env:
+                KAKAO_CLIENT: ${{ secrets.KAKAO_CLIENT }}
+                KAKAO_EMAIL: ${{ secrets.KAKAO_EMAIL }}
+                KAKAO_PASSWORD: ${{ secrets.KAKAO_PASSWORD }}
+                KAKAO_TEMPLATE_ID: 97232
+                KAKAO_SENDER_TEMPLATE_ID: 97280
+                KAKAO_REDIRECT_URL: http://localhost:3000/oauth/kakao/callback
+                
+
+
+
+
+
