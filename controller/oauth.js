@@ -1,6 +1,5 @@
 import axios from "axios";
 import crawlKakaoLoginPage from "../util/crawlKakaoLoginPage.js";
-import sendMessage from "../util/sendMessage.js";
 
 export const kakaoLoginPage = (req, res) => {
   console.log("[INFO] : start LoginPage");
@@ -38,17 +37,12 @@ export const kakaoLoginWithServer = async (req, res) => {
     });
     const access_token = request.access_token;
     console.log("[INFO] : access_token : " + access_token);
-
-    await sendMessage(access_token);
-
-    console.log("[INFO] : All tasks completed, exiting...");
-    // process.exit(0);
-    return res.status(201).redirect("/");
+    return res.redirect("/send?access_token=" + access_token);
   } catch (err) {
     console.error(err);
+    const error_message = "kakaoLoginWithServer Error";
     return res.redirect(
-      500,
-      "/?loginError=server error occured. please try again."
+      "/exit/error?message=" + encodeURIComponent(error_message)
     );
   }
 };
