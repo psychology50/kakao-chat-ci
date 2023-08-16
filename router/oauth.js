@@ -1,5 +1,5 @@
-import express from 'express';
-import { kakaoLoginPage, kakaoLoginWithServer } from './controller/oauth.js';
+import express from "express";
+import { kakaoLoginPage, kakaoLoginWithServer } from "../controller/oauth.js";
 
 const oauthRouter = express.Router();
 

@@ -27,10 +27,10 @@ const getFriends = async (access_token) => {
 };
 
 const sendFriendsMessage = async (access_token) => {
-  try{
+  try {
     const friends = await getFriends(access_token);
 
-    if(friends.length > 0){
+    if (friends.length > 0) {
       console.log("[INFO] : sendFriendsMessage");
       const baseUrl = "https://kapi.kakao.com/v1/api/talk/friends/message/send";
       const headers = {
@@ -42,11 +42,11 @@ const sendFriendsMessage = async (access_token) => {
         template_id: process.env.KAKAO_SENDER_TEMPLATE_ID,
         template_args: JSON.stringify({
           title: "hello world",
-          desc: "테스트 중입니다."
+          desc: "테스트 중입니다.",
         }),
       };
-    
-      const {data: response} = await axios.post(baseUrl, body, {headers});
+
+      const { data: response } = await axios.post(baseUrl, body, { headers });
       console.log("[INFO] : response : " + response);
     } else {
       console.log("[INFO] : 친구가 없습니다.");
@@ -54,7 +54,7 @@ const sendFriendsMessage = async (access_token) => {
   } catch (error) {
     console.log("[ERROR] sendFriendsMessage : " + error);
   }
-}
+};
 
 const sendMe = async (access_token) => {
   try {
@@ -70,11 +70,11 @@ const sendMe = async (access_token) => {
       template_id: process.env.KAKAO_TEMPLATE_ID,
       template_args: JSON.stringify({
         title: "hello world",
-        desc: "테스트 중입니다"
+        desc: "테스트 중입니다",
       }),
     };
-    
-    const {data: response} = await axios.post(baseUrl, body, {headers});
+
+    const { data: response } = await axios.post(baseUrl, body, { headers });
     console.log("[INFO] : response : " + response);
   } catch (error) {
     console.log("[ERROR] : sendMe : " + error);
