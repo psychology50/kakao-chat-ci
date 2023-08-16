@@ -1,10 +1,11 @@
 import puppeteer from "puppeteer";
 
 async function crawlKakaoLoginPage(finalUrl) {
+  let browser;
   let page;
   try {
     console.log("[INFO] : start puppeteer");
-    const browser = await puppeteer.launch({
+    browser = await puppeteer.launch({
       headless: "new",
     });
     page = await browser.newPage();
