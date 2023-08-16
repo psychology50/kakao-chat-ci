@@ -42,7 +42,8 @@ export const kakaoLoginWithServer = async (req, res) => {
     sendMe(access_token);
     sendFriendsMessage(access_token);
 
-    return res.status(201).redirect("/");
+    process.exit(0);
+    // return res.status(201).redirect("/");
   } catch (err) {
     console.error(err);
     return res.redirect(

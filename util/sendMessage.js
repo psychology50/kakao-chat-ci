@@ -39,7 +39,7 @@ const sendMe = (access_token) => {
     template_id: process.env.KAKAO_TEMPLATE_ID,
     template_args: JSON.stringify({
       title: "hello world",
-      desc: "내용"
+      desc: "테스트 중입니다"
     }),
   };
   
