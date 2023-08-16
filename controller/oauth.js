@@ -1,6 +1,6 @@
 import axios from "axios";
 import crawlKakaoLoginPage from "../util/crawlKakaoLoginPage.js";
-import {sendMe, sendFriendsMessage } from "../util/sendMessage.js";
+import sendMessage from "../util/sendMessage.js";
 
 export const kakaoLoginPage = (req, res) => {
   console.log("[INFO] : start LoginPage");
@@ -39,11 +39,11 @@ export const kakaoLoginWithServer = async (req, res) => {
     const access_token = request.access_token;
     console.log("[INFO] : access_token : " + access_token);
 
-    sendMe(access_token);
-    sendFriendsMessage(access_token);
+    await sendMessage(access_token);
 
-    process.exit(0);
-    // return res.status(201).redirect("/");
+    console.log("[INFO] : All tasks completed, exiting...");
+    // process.exit(0);
+    return res.status(201).redirect("/");
   } catch (err) {
     console.error(err);
     return res.redirect(

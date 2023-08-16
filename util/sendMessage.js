@@ -26,58 +26,70 @@ const getFriends = async (access_token) => {
   }
 };
 
-const sendMe = (access_token) => {
-  console.log("[INFO] : sendMessage");
-  const baseUrl = "https://kapi.kakao.com/v2/api/talk/memo/send";
-  const headers = {
-    "Content-Type": "application/x-www-form-urlencoded",
-    Authorization: `Bearer ${access_token}`,
-  };
-
-  // 템플릿 메시지, args를 string으로 변환해야 함
-  const body = {
-    template_id: process.env.KAKAO_TEMPLATE_ID,
-    template_args: JSON.stringify({
-      title: "hello world",
-      desc: "테스트 중입니다"
-    }),
-  };
-  
-  axios
-    .post(baseUrl, body, { headers })
-    .then((res) => {
-      console.log(res.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
 const sendFriendsMessage = async (access_token) => {
-  const friends = await getFriends(access_token);
+  try{
+    const friends = await getFriends(access_token);
 
-  const baseUrl = "https://kapi.kakao.com/v1/api/talk/friends/message/send";
-  const headers = {
-    "Content-Type": "application/x-www-form-urlencoded",
-    Authorization: `Bearer ${access_token}`,
-  };
-  const body = {
-    receiver_uuids: JSON.stringify(friends),
-    template_id: process.env.KAKAO_SENDER_TEMPLATE_ID,
-    template_args: JSON.stringify({
-      title: "돼냐?",
-      desc: "내용"
-    }),
-  };
-
-  axios
-    .post(baseUrl, body, { headers })
-    .then((res) => {
-      console.log(res.data);
-    })
-    .catch((err) => {
-      console.log(err.data);
-    });
+    if(friends.length > 0){
+      console.log("[INFO] : sendFriendsMessage");
+      const baseUrl = "https://kapi.kakao.com/v1/api/talk/friends/message/send";
+      const headers = {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Bearer ${access_token}`,
+      };
+      const body = {
+        receiver_uuids: JSON.stringify(friends),
+        template_id: process.env.KAKAO_SENDER_TEMPLATE_ID,
+        template_args: JSON.stringify({
+          title: "hello world",
+          desc: "테스트 중입니다."
+        }),
+      };
+    
+      const {data: response} = await axios.post(baseUrl, body, {headers});
+      console.log("[INFO] : response : " + response);
+    } else {
+      console.log("[INFO] : 친구가 없습니다.");
+    }
+  } catch (error) {
+    console.log("[ERROR] sendFriendsMessage : " + error);
+  }
 }
 
-export {sendMe, sendFriendsMessage};
+const sendMe = async (access_token) => {
+  try {
+    console.log("[INFO] : sendMe");
+    const baseUrl = "https://kapi.kakao.com/v2/api/talk/memo/send";
+    const headers = {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: `Bearer ${access_token}`,
+    };
+
+    // 템플릿 메시지, args를 string으로 변환해야 함
+    const body = {
+      template_id: process.env.KAKAO_TEMPLATE_ID,
+      template_args: JSON.stringify({
+        title: "hello world",
+        desc: "테스트 중입니다"
+      }),
+    };
+    
+    const {data: response} = await axios.post(baseUrl, body, {headers});
+    console.log("[INFO] : response : " + response);
+  } catch (error) {
+    console.log("[ERROR] : sendMe : " + error);
+  }
+};
+
+const sendMessage = async (access_token) => {
+  console.log("[INFO] : sendMessage");
+  try {
+    sendMe(access_token);
+    await sendFriendsMessage(access_token);
+    console.log("[INFO] : All messages sent successfully");
+  } catch (error) {
+    console.log("[ERROR] : sendMessage : " + error);
+  }
+};
+
+export default sendMessage;
