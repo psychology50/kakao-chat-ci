@@ -30,7 +30,7 @@ async function crawlKakaoLoginPage(finalUrl) {
     ]);
 
     try {
-      page.waitForSelector("div > .cont_addcertify", { timeout: 1000 });
+      await page.waitForSelector(".cont_addcertify", { timeout: 5000 });
       try {
         // 기기인증을 해야하는 경우
         console.log("[INFO] : need device auth");
