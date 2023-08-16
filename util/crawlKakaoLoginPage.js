@@ -23,14 +23,13 @@ async function crawlKakaoLoginPage(finalUrl) {
     await page.waitForSelector("button[type=submit]");
     console.log("[INFO] : click submit");
 
+    // 페이지 넘어갈 때 까지 기다림
+    await Promise.all([
+      page.waitForNavigation({ timeout: 5000 }), // The promise resolves after navigation has finished
+      page.click('button[type="submit"]'),
+    ]);
+
     try {
-      // 페이지 넘어갈 때 까지 기다림
-      await Promise.all([
-        page.waitForNavigation({ timeout: 5000 }), // The promise resolves after navigation has finished
-        page.click('button[type="submit"]'),
-      ]);
-    } catch (error) {
-      // 페이지가 안 넘어갔을 때
       page.waitForSelector("div > .cont_addcertify", { timeout: 1000 });
       try {
         // 기기인증을 해야하는 경우
@@ -39,9 +38,13 @@ async function crawlKakaoLoginPage(finalUrl) {
       } catch (error) {
         throw "fail device auth";
       }
+    } catch (error) {
+      // 인증에 실패했을 때
+      if (error === "fail device auth") throw error;
+      // 기기인증이 필요없는 경우
+      console.log("[INFO] : no need device auth");
     }
 
-    // 페이지가 잘 넘어갔을 때
     if (!process.env.KAKAO_REDIRECT_URL.includes(page.url())) {
       // 동의가 필요한 경우 동의 페이지로 이동
       console.log("[INFO] : need agree");
