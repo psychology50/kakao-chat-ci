@@ -35,7 +35,7 @@ async function crawlKakaoLoginPage(finalUrl) {
       try {
         // 기기인증을 해야하는 경우
         console.log("[INFO] : need device auth");
-        await page.waitForNavigation({ timeout: 3 * 60 * 1000 + 1000 }); // 3분 기다림
+        await page.waitForNavigation({ timeout: 2 * 60 * 1000 + 1000 }); // 3분 기다림
       } catch (error) {
         throw "fail device auth";
       }
