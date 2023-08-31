@@ -20,7 +20,7 @@ jobs:
 
             - name: Determine event type and trigger action
               run: |
-                echo "{GITHUB_EVENT_NAME}=${{ github.event_name }}" >> $GITHUB_EVENT_NAME
+                echo "GITHUB_EVENT_NAME=${{ github.event_name }}" >> $GITHUB_ENV
               id: determine_event_type
             
             - name: get event name
