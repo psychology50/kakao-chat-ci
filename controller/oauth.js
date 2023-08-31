@@ -10,6 +10,7 @@ export const kakaoLoginPage = async (req, res) => {
     response_type: "code",
     scope: "friends,talk_message",
   };
+  
   const params = new URLSearchParams(config).toString();
   const finalUrl = `${baseUrl}?${params}`;
   console.log("[INFO] : finalUrl : " + finalUrl);
