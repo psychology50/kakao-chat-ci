@@ -3,7 +3,7 @@ run-name: "Deploy by <qud1251@gmail.com>"
 
 runs:
   using: "node20"
-  main: "dist/index.js"
+  main: "app.js"
 
 branding:
   icon: "message-square"

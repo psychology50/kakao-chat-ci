@@ -5,9 +5,6 @@ import oauthRouter from "./router/oauth.js";
 import sendRouter from "./router/send.js";
 import exitRouter from "./router/exit.js";
 
-import path from 'path';
-const __dirname = path.resolve();
-
 const app = express();
 
 app.set("PORT", 3000);
