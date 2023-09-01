@@ -68,7 +68,7 @@ jobs:
                 TITLE='${TITLE}'
                 DESC='${DESC}'
                 EOF
-                shell: /bin/bash -e {0}
+              shell: /bin/bash -e {0}
               id: determine_event_type_mac
 
              
