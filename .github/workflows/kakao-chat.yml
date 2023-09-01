@@ -63,7 +63,10 @@ jobs:
                   TITLE="[${{github.actor}}]_${{ github.event_name }}"
                   DESC="${{ github.event.pull_request.title }}"
                 fi
-          
+
+                # Convert \n in DESC to literal "\\n" before writing to file
+                DESC="${DESC//\\n/\\\\n}"
+
                 cat <<EOF >> $GITHUB_OUTPUT
                 TITLE='${TITLE}'
                 DESC='${DESC}'
@@ -75,8 +78,6 @@ jobs:
               if: runner.os == 'macOS'
               run: |
                 echo "TITLE : ${{ steps.determine_event_type_mac.outputs.TITLE }}"
-                echo "DESC : ${{ steps.determine_event_type_mac.outputs.DESC }}"
-
-             
+                echo "DESC : ${{ steps.determine_event_type_mac.outputs.DESC }}" 
 
                 
