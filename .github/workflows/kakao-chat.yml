@@ -71,10 +71,15 @@ jobs:
                 echo "TITLE : ${{ steps.determine_event_type_mac.outputs.TITLE }}"
                 echo "DESC : ${{ steps.determine_event_type_mac.outputs.DESC }}"
 
-            - name: Double Check
+            - name: run kakao-chat
               if: runner.os == 'macOS'
-              run: |
-                echo "TITLE : ${{ steps.determine_event_type_mac.outputs.TITLE }}"
-                echo "DESC : ${{ steps.determine_event_type_mac.outputs.DESC }}"   
+              run: node app.js ${{ steps.determine_event_type_mac.outputs.TITLE }} ${{ steps.determine_event_type_mac.outputs.DESC }}
+              env:
+                KAKAO_CLIENT: ${{ secrets.KAKAO_CLIENT }}
+                KAKAO_EMAIL: ${{ secrets.KAKAO_EMAIL }}
+                KAKAO_PASSWORD: ${{ secrets.KAKAO_PASSWORD }}
+                KAKAO_TEMPLATE_ID: 97232
+                KAKAO_SENDER_TEMPLATE_ID: 97280
+                KAKAO_REDIRECT_URL: http://localhost:3000/oauth/kakao/callback     
 
                 
