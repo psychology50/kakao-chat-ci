@@ -9,7 +9,7 @@ on:
     pull_request:
         types: [review_requested, opened, reopened, ready_for_review]
     pull_request_review:
-        types: [submitted, edited, dismissed]
+        types: [submitted]
 
 jobs:
     build-and-notify:
@@ -29,7 +29,7 @@ jobs:
             - name: Determine event type and trigger action at Windows
               if: runner.os == 'Windows' 
               run: |
-                if (${{github.event_name}} == 'push') {}
+                if (${{github.event_name}} == 'push') {
                   echo "event_name=${{ github.event_name }}" >> $env:GITHUB_OUTPUT
                   echo "username=${{ github.event.head_commit.author.username }}" >> $env:GITHUB_OUTPUT
                   echo "actor=${{ github.actor }}" >> $env:GITHUB_OUTPUT
@@ -55,13 +55,13 @@ jobs:
               run: |
                 if [ ${{github.event_name}} == 'push' ]; then
                   echo "TITLE=[${{github.actor}}]_${{ github.event_name }}" >> $GITHUB_OUTPUT
-                  echo "DESC=$(echo '${{ github.event.head_commit.message }}' | sed 's/\/ /g')" >> $GITHUB_OUTPUT
+                  echo "DESC=$(echo '${{ github.event.head_commit.message }}' | awk '{printf "%s", $0}')" >> $GITHUB_OUTPUT
                 elif [ ${{github.event_name}} == 'pull_request' ]; then
                   echo "TITLE='[${{github.actor}}]_${{ github.event_name }}'" >> $GITHUB_OUTPUT
-                  echo "DESC='${{ github.event.pull_request.title }}'" >> $GITHUB_OUTPUT
+                  echo "DESC=$(echo '${{ github.event.pull_request.title }}' | awk '{printf "%s", $0}')" >> $GITHUB_OUTPUT
                 elif [ ${{github.event_name}} == 'pull_request_review' ]; then
                   echo "TITLE='[${{github.actor}}]_${{ github.event_name }}'" >> $GITHUB_OUTPUT
-                  echo "DESC='${{ github.event.pull_request.title }}'" >> $GITHUB_OUTPUT
+                  echo "DESC=$(echo '${{ github.event.pull_request.title }}' | awk '{printf "%s", $0}')" >> $GITHUB_OUTPUT
                 fi
               id: determine_event_type_mac
 
