@@ -16,7 +16,7 @@ app.use("/exit", exitRouter);
 app.listen(app.get("PORT"), () => {
   console.log(`✅ Server is running on ${app.get("PORT")}`);
   console.log(`TITLE = ${process.argv[2]}`);
-  console.log(`CLIENT_ID = ${process.argv[3]}`);
+  console.log(`DESC = ${process.argv[3]}`);
 
   axios.get("http://127.0.0.1:3000/oauth/kakao");
 });

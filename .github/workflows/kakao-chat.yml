@@ -54,13 +54,13 @@ jobs:
               if: runner.os == 'macOS' 
               run: |
                 if [ ${{github.event_name}} == 'push' ]; then
-                  echo "TITLE=[${{github.actor}}] ${{ github.event_name }}" >> $GITHUB_OUTPUT
+                  echo `TITLE=[${{github.actor}}] ${{ github.event_name }}` >> $GITHUB_OUTPUT
                   echo "DESC=${{ github.event.head_commit.message }}" >> $GITHUB_OUTPUT
                 elif [ ${{github.event_name}} == 'pull_request' ]; then
-                  echo "TITLE=[${{github.actor}}] ${{ github.event_name }}" >> $GITHUB_OUTPUT
+                  echo `TITLE=[${{github.actor}}] ${{ github.event_name }}` >> $GITHUB_OUTPUT
                   echo "DESC=${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
                 elif [ ${{github.event_name}} == 'pull_request_review' ]; then
-                  echo "TITLE=[${{github.actor}}] ${{ github.event_name }}" >> $GITHUB_OUTPUT
+                  echo `TITLE=[${{github.actor}}] ${{ github.event_name }}` >> $GITHUB_OUTPUT
                   echo "DESC=${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
                 fi
               id: determine_event_type_mac
