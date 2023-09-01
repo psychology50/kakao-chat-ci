@@ -55,26 +55,16 @@ jobs:
               run: |
                 if [ ${{github.event_name}} == 'push' ]; then
                   echo "TITLE=[${{github.actor}}]_${{ github.event_name }}" >> $GITHUB_OUTPUT
-                  echo "DESC=${{ github.event.head_commit.message }}" >> $GITHUB_OUTPUT
+                  echo "DESC='${{ github.event.head_commit.message }}'" >> $GITHUB_OUTPUT
                 elif [ ${{github.event_name}} == 'pull_request' ]; then
                   echo "TITLE='[${{github.actor}}]_${{ github.event_name }}'" >> $GITHUB_OUTPUT
-                  echo "DESC=${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
+                  echo "DESC='${{ github.event.pull_request.title }}'" >> $GITHUB_OUTPUT
                 elif [ ${{github.event_name}} == 'pull_request_review' ]; then
                   echo "TITLE='[${{github.actor}}]_${{ github.event_name }}'" >> $GITHUB_OUTPUT
-                  echo "DESC=${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
+                  echo "DESC='${{ github.event.pull_request.title }}'" >> $GITHUB_OUTPUT
                 fi
               id: determine_event_type_mac
 
-            - name: run kakao-chat
-              if: runner.os == 'macOS'
-              run: |
-                node app.js ${{ steps.determine_event_type_mac.outputs.TITLE }} "${{ steps.determine_event_type_mac.outputs.DESC }}"
-              env:
-                KAKAO_CLIENT: ${{ secrets.KAKAO_CLIENT }}
-                KAKAO_EMAIL: ${{ secrets.KAKAO_EMAIL }}
-                KAKAO_PASSWORD: ${{ secrets.KAKAO_PASSWORD }}
-                KAKAO_TEMPLATE_ID: 97232
-                KAKAO_SENDER_TEMPLATE_ID: 97280
-                KAKAO_REDIRECT_URL: http://localhost:3000/oauth/kakao/callback    
+             
 
                 
