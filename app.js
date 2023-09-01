@@ -5,8 +5,8 @@ import oauthRouter from "./router/oauth.js";
 import sendRouter from "./router/send.js";
 import exitRouter from "./router/exit.js";
 
-const core = require("@actions/core");
-const github = require("@actions/github");
+import path from 'path';
+const __dirname = path.resolve();
 
 const app = express();
 
