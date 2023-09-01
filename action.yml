@@ -1,5 +1,5 @@
-name: kakao-chat-ci
-run-name: Deploy by @${{ github.actor }} 
+name: "kakao-chat-ci"
+run-name: "Deploy by <qud1251@gmail.com>"
 
 runs:
   using: "node20"
