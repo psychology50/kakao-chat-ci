@@ -54,24 +54,15 @@ jobs:
               if: runner.os == 'macOS' 
               run: |
                 if [ ${{github.event_name}} == 'push' ]; then
-                  TITLE="[${{github.actor}}]_${{ github.event_name }}"
-                  DESC="${{ github.event.head_commit.message }}"
+                  echo "TITLE=[${{github.actor}}]_${{ github.event_name }}" >> $GITHUB_OUTPUT
+                  echo "DESC=$(echo '${{ github.event.head_commit.message }}' | 'sed/\/ /g')" >> $GITHUB_OUTPUT
                 elif [ ${{github.event_name}} == 'pull_request' ]; then
-                  TITLE="[${{github.actor}}]_${{ github.event_name }}"
-                  DESC="${{ github.event.pull_request.title }}"
+                  echo "TITLE='[${{github.actor}}]_${{ github.event_name }}'" >> $GITHUB_OUTPUT
+                  echo "DESC='${{ github.event.pull_request.title }}'" >> $GITHUB_OUTPUT
                 elif [ ${{github.event_name}} == 'pull_request_review' ]; then
-                  TITLE="[${{github.actor}}]_${{ github.event_name }}"
-                  DESC="${{ github.event.pull_request.title }}"
+                  echo "TITLE='[${{github.actor}}]_${{ github.event_name }}'" >> $GITHUB_OUTPUT
+                  echo "DESC='${{ github.event.pull_request.title }}'" >> $GITHUB_OUTPUT
                 fi
-
-                # Convert \n in DESC to literal "\\n" before writing to file
-                DESC="${DESC//\\n/\\\\n}"
-
-                cat <<EOF >> $GITHUB_OUTPUT
-                TITLE='${TITLE}'
-                DESC='${DESC}'
-                EOF
-              shell: /bin/bash -e {0}
               id: determine_event_type_mac
 
             - name: Get Event Name from macOS
