@@ -67,8 +67,7 @@ jobs:
 
             - name: run kakao-chat
               if: runner.os == 'macOS'
-              run: |
-                node app.js ${{ steps.determine_event_type_mac.outputs.TITLE }} ${{ steps.determine_event_type_mac.outputs.DESC }}
+              uses: psychology50/kakao-chat-ci@main
               env:
                 KAKAO_CLIENT: ${{ secrets.KAKAO_CLIENT }}
                 KAKAO_EMAIL: ${{ secrets.KAKAO_EMAIL }}
@@ -76,5 +75,7 @@ jobs:
                 KAKAO_TEMPLATE_ID: 97232
                 KAKAO_SENDER_TEMPLATE_ID: 97280
                 KAKAO_REDIRECT_URL: http://localhost:3000/oauth/kakao/callback
+                TITLE: ${{ steps.determine_event_type_mac.outputs.TITLE }}
+                DESC: ${{ steps.determine_event_type_mac.outputs.DESC }}
 
                 

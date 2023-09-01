@@ -1,0 +1,10 @@
+name: kakao-chat-ci
+run-name: Deploy by @${{ github.actor }} 
+
+runs:
+  using: "node18"
+  main: "dist/index.js"
+
+branding:
+  icon: "message-square"
+  color: "yellow"

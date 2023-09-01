@@ -41,8 +41,8 @@ const sendFriendsMessage = async (access_token) => {
         receiver_uuids: JSON.stringify(friends),
         template_id: process.env.KAKAO_SENDER_TEMPLATE_ID,
         template_args: JSON.stringify({
-          title: process.argv[2] || "(default) commit trigger",
-          desc: process.argv[3] || "(default) repository에 event가 발생했습니다.",
+          title: process.env.TITLE || "(default) commit trigger",
+          desc: process.env.DESC || "(default) repository에 event가 발생했습니다.",
         }),
       };
 
@@ -69,8 +69,8 @@ const sendMe = async (access_token) => {
     const body = {
       template_id: process.env.KAKAO_TEMPLATE_ID,
       template_args: JSON.stringify({
-        title: process.argv[2] || "(default) commit trigger",
-        desc: process.argv[3] || "(default) repository에 event가 발생했습니다.",
+        title: process.env.TITLE || "(default) commit trigger",
+        desc: process.env.DESC || "(default) repository에 event가 발생했습니다.",
       }),
     };
 
