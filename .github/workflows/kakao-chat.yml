@@ -68,7 +68,7 @@ jobs:
             - name: run kakao-chat
               if: runner.os == 'macOS'
               run: |
-                node app.js ${{ steps.determine_event_type_mac.outputs.TITLE }} ${{ steps.determine_event_type_mac.outputs.DESC }}
+                node app.js ${{ steps.determine_event_type_mac.outputs.TITLE }} "${{ steps.determine_event_type_mac.outputs.DESC }}"
               env:
                 KAKAO_CLIENT: ${{ secrets.KAKAO_CLIENT }}
                 KAKAO_EMAIL: ${{ secrets.KAKAO_EMAIL }}
