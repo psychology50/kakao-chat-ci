@@ -55,7 +55,7 @@ jobs:
               run: |
                 if [ ${{github.event_name}} == 'push' ]; then
                   echo "TITLE=[${{github.actor}}]_${{ github.event_name }}" >> $GITHUB_OUTPUT
-                  echo "DESC=$(echo '${{ github.event.head_commit.message }}' | 'sed/\/ /g')" >> $GITHUB_OUTPUT
+                  echo "DESC=$(echo '${{ github.event.head_commit.message }}' | sed 's/\/ /g')" >> $GITHUB_OUTPUT
                 elif [ ${{github.event_name}} == 'pull_request' ]; then
                   echo "TITLE='[${{github.actor}}]_${{ github.event_name }}'" >> $GITHUB_OUTPUT
                   echo "DESC='${{ github.event.pull_request.title }}'" >> $GITHUB_OUTPUT
