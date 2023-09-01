@@ -18,6 +18,14 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
 
+            - name: Set up node
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+              
+            - name: Install dependencies
+              run: npm install
+
             - name: Determine event type and trigger action at Windows
               if: runner.os == 'Windows' 
               run: |
@@ -46,31 +54,24 @@ jobs:
               if: runner.os == 'macOS' 
               run: |
                 if [ ${{github.event_name}} == 'push' ]; then
-                  echo "event_name=${{ github.event_name }}" >> $GITHUB_OUTPUT
-                  echo "username=${{ github.event.head_commit.author.username }}" >> $GITHUB_OUTPUT
-                  echo "actor=${{ github.actor }}" >> $GITHUB_OUTPUT
-                  echo "commit_message=${{ github.event.head_commit.message }}" >> $GITHUB_OUTPUT
+                  echo "TITLE=[${{github.actor}}] ${{ github.event_name }}" >> $GITHUB_OUTPUT
+                  echo "DESC=${{ github.event.head_commit.message }}" >> $GITHUB_OUTPUT
                 elif [ ${{github.event_name}} == 'pull_request' ]; then
-                  echo "event_name=${{ github.event_name }}" >> $GITHUB_OUTPUT
-                  echo "username=${{ github.event.pull_request.user.login }}" >> $GITHUB_OUTPUT
-                  echo "actor=${{ github.actor }}" >> $GITHUB_OUTPUT
-                  echo "commit_message=${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
+                  echo "TITLE=[${{github.actor}}] ${{ github.event_name }}" >> $GITHUB_OUTPUT
+                  echo "DESC=${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
                 elif [ ${{github.event_name}} == 'pull_request_review' ]; then
-                  echo "event_name=${{ github.event_name }}" >> $GITHUB_OUTPUT
-                  echo "username=${{ github.event.pull_request.user.login }}" >> $GITHUB_OUTPUT
-                  echo "actor=${{ github.actor }}" >> $GITHUB_OUTPUT
-                  echo "commit_message=${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
+                  echo "TITLE=[${{github.actor}}] ${{ github.event_name }}" >> $GITHUB_OUTPUT
+                  echo "DESC=${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
                 fi
               id: determine_event_type_mac
 
             - name: Get Event Name from macOS
               if: runner.os == 'macOS'
               run: |
-                echo "event_name : ${{ steps.determine_event_type_mac.outputs.event_name }}"
-                echo "username : ${{ steps.determine_event_type_mac.outputs.username }}"
-                echo "actor : ${{ steps.determine_event_type_mac.outputs.actor }}"
-                echo "commit_message : ${{ steps.determine_event_type_mac.outputs.commit_message }}"
+                echo "TITLE : ${{ steps.determine_event_type_mac.outputs.TITLE }}"
+                echo "DESC : ${{ steps.determine_event_type_mac.outputs.DESC }}"
 
+                       
             
 
              
