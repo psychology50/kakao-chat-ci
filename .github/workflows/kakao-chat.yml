@@ -71,6 +71,12 @@ jobs:
               shell: /bin/bash -e {0}
               id: determine_event_type_mac
 
+            - name: Get Event Name from macOS
+              if: runner.os == 'macOS'
+              run: |
+                echo "TITLE : ${{ steps.determine_event_type_mac.outputs.TITLE }}"
+                echo "DESC : ${{ steps.determine_event_type_mac.outputs.DESC }}"
+
              
 
                 
