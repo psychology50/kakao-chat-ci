@@ -55,13 +55,13 @@ jobs:
               run: |
                 if [ ${{github.event_name}} == 'push' ]; then
                   echo "TITLE=[${{github.actor}}]_${{ github.event_name }}" >> $GITHUB_OUTPUT
-                  echo "DESC=$(echo '${{ github.event.head_commit.message }}' | awk '{printf "%s", $0}')" >> $GITHUB_OUTPUT
+                  echo "DESC='$(echo '${{ github.event.head_commit.message }}' | awk '{printf "%s", $0}')'" >> $GITHUB_OUTPUT
                 elif [ ${{github.event_name}} == 'pull_request' ]; then
                   echo "TITLE='[${{github.actor}}]_${{ github.event_name }}'" >> $GITHUB_OUTPUT
-                  echo "DESC=$(echo '${{ github.event.pull_request.title }}' | awk '{printf "%s", $0}')" >> $GITHUB_OUTPUT
+                  echo "DESC='$(echo '${{ github.event.pull_request.title }}' | awk '{printf "%s", $0}')'" >> $GITHUB_OUTPUT
                 elif [ ${{github.event_name}} == 'pull_request_review' ]; then
                   echo "TITLE='[${{github.actor}}]_${{ github.event_name }}'" >> $GITHUB_OUTPUT
-                  echo "DESC=$(echo '${{ github.event.pull_request.title }}' | awk '{printf "%s", $0}')" >> $GITHUB_OUTPUT
+                  echo "DESC='$(echo '${{ github.event.pull_request.title }}' | awk '{printf "%s", $0}')'" >> $GITHUB_OUTPUT
                 fi
               id: determine_event_type_mac
 
