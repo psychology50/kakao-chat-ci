@@ -7,9 +7,9 @@ on:
             - main
             - develop
     pull_request:
-        types: [review_requested]
+        types: [review_requested, opened, reopened, ready_for_review]
     pull_request_review:
-        types: [submitted, edited, dismissed]
+        types: [submitted]
 
 jobs:
     build-and-notify:
@@ -72,5 +72,4 @@ jobs:
             #     KAKAO_REDIRECT_URL: http://localhost:3000/oauth/kakao/callback
             #     TITLE: ${{ steps.determine_event_type_mac.outputs.TITLE }}
             #     DESC: ${{ steps.determine_event_type_mac.outputs.DESC }}
-
 

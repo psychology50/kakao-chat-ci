@@ -1,0 +1,10 @@
+name: "kakao-chat-ci"
+run-name: "Deploy by <qud1251@gmail.com>"
+
+runs:
+  using: "node20"
+  main: "app.js"
+
+branding:
+  icon: "message-square"
+  color: "yellow"
