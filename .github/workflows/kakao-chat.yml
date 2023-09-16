@@ -42,8 +42,8 @@ jobs:
             - name: Check Ouput at Windows
               if: runner.os == 'Windows'
               run: |
-                echo ${{steps.determine_event_type_windows.outputs.TITLE}}
-                echo ${{steps.determine_event_type_windows.outputs.DESC}}
+                echo "${{steps.determine_event_type_windows.outputs.TITLE}}"
+                echo "${{steps.determine_event_type_windows.outputs.DESC}}"
 
             # - name: Determine event type and trigger action at macOS
             #   if: runner.os == 'macOS' 
