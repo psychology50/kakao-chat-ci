@@ -26,12 +26,12 @@ jobs:
                   $DESC="${{ github.event.head_commit.message }}".split("`n")[0]
                   echo "TITLE=$TITLE" >> $env:GITHUB_OUTPUT
                   echo "DESC=$DESC" >> $env:GITHUB_OUTPUT
-                } elseif ( "${{github.event_name}}" == "pull_request" ) {
+                } elseif ( "${{github.event_name}}" -eq "pull_request" ) {
                   $TITLE="[${{github.actor}}]_${{ github.event_name }}" 
                   $DESC="${{ github.event.pull_request.title }}".split("`n")[0]
                   echo "TITLE=$TITLE" >> $env:GITHUB_OUTPUT
                   echo "DESC=$DESC" >> $env:GITHUB_OUTPUT
-                } elseif ( "${{github.event_name}}" == "pull_request_review" ) {
+                } elseif ( "${{github.event_name}}" -eq "pull_request_review" ) {
                   $TITLE="${{github.actor}}]_${{ github.event_name }}"
                   $DESC="${{ github.event.pull_request.title }}".split("`n")[0]
                   echo "TITLE=$TITLE" >> $env:GITHUB_OUTPUT
