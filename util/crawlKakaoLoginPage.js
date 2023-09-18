@@ -1,15 +1,29 @@
-// import puppeteer from "puppeteer";
-import puppeteer from "puppeteer-core";
+import puppeteer from "puppeteer";
+import puppeteerCore from "puppeteer-core";
+import Os from 'os'
 
 async function crawlKakaoLoginPage(finalUrl) {
   let browser;
   let page;
   try {
+    const osPlatform = Os.platfrom();
+    console.log('[INFO] Scraper running on platform: ', osPlatform); 
+
     console.log("[INFO] : start puppeteer");
-    browser = await puppeteer.launch({
-      headless: "new",
-      executablePath: process.env.CHROME_PATH,
-    });
+    if (osPlatform === 'darwin') {
+      console.log("[INFO] : application runs on macOS")
+      browser = await puppeteerCore.launch({
+        headless: "new",
+        executablePath: process.env.CHROME_PATH,
+      });
+    } else if (/^win/i.test(osPlatform)) {
+      console.log("[INFO] : application runs on Window")
+      browser = await puppeteer.launch({
+        headless: "new",
+        executablePath: process.env.CHROME_PATH,
+      });
+    }
+
     console.log("[INFO] : start new page");
     page = await browser.newPage();
     console.log("[INFO] : start LoginPage");
