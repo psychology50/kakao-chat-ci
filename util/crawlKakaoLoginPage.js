@@ -1,9 +1,10 @@
 import puppeteer from "puppeteer";
-import puppeteerCore from "puppeteer-core";
+import * as puppeteerCore from "puppeteer-core";
 
 async function crawlKakaoLoginPage(finalUrl) {
   let browser;
   let page;
+  
   try {
     const osPlatform = process.platform
     console.log('[INFO] Scraper running on platform: ', osPlatform); 
