@@ -75,6 +75,7 @@ async function crawlKakaoLoginPage(finalUrl) {
     console.log(page.url());
     console.log("page html =>");
     console.log(await page.content());
+    console.log(error.message());
     if (browser) browser.close();
     throw error;
   }
