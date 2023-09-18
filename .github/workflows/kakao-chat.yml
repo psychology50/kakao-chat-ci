@@ -47,7 +47,7 @@ jobs:
               run: |
                 echo "${{steps.determine_event_type_windows.outputs.TITLE}}"
                 echo "${{steps.determine_event_type_windows.outputs.DESC}}"
-                echo "${{ github.workspace }}"
+                (Get-Location) | Select-Object -ExpandProperty Path
 
             - name: Determine event type and trigger action at macOS
               if: runner.os == 'macOS' 
