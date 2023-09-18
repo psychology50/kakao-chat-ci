@@ -8,7 +8,7 @@ async function crawlKakaoLoginPage(finalUrl) {
     browser = await puppeteer.launch({
       headless: "new",
     });
-    print("[INFO] : start new page");
+    console.log("[INFO] : start new page");
     page = await browser.newPage();
     console.log("[INFO] : start LoginPage");
     await page.goto(finalUrl);
@@ -71,11 +71,11 @@ async function crawlKakaoLoginPage(finalUrl) {
     return;
   } catch (error) {
     console.log("[ERROR] : fail login");
+    console.log(error.message);
     console.log("page url =>");
     console.log(page.url());
     console.log("page html =>");
     console.log(await page.content());
-    console.log(error.message());
     if (browser) browser.close();
     throw error;
   }
