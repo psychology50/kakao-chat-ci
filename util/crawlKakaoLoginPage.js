@@ -1,12 +1,13 @@
 import puppeteer from "puppeteer";
 import puppeteerCore from "puppeteer-core";
-import Os from 'os'
+
+const os = require('node:os');
 
 async function crawlKakaoLoginPage(finalUrl) {
   let browser;
   let page;
   try {
-    const osPlatform = Os.platfrom();
+    const osPlatform = os.platfrom();
     console.log('[INFO] Scraper running on platform: ', osPlatform); 
 
     console.log("[INFO] : start puppeteer");
