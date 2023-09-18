@@ -40,7 +40,7 @@ jobs:
                   echo "TITLE=$TITLE" >> $env:GITHUB_OUTPUT
                   echo "DESC=$DESC" >> $env:GITHUB_OUTPUT
                 }
-                $CHROME_PATH = (Join-Path (Join-Path (Split-Path (Split-Path "${{github.workspace}}") -Parent) "chromium\latest\x64") "chrome.exe")
+                $CHROME_PATH = (Join-Path (Join-Path (Split-Path (Split-Path "${{github.workspace}}") -Parent) "_tool\chromium\latest\x64") "chrome.exe")
                 echo "CHROME_PATH=$CHROME_PATH" >> $env:GITHUB_OUTPUT
               id: determine_event_type_windows
 
