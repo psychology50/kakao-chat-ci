@@ -5,7 +5,7 @@ async function crawlKakaoLoginPage(finalUrl) {
   let browser;
   let page;
   try {
-    osPlatform = process.platform
+    const osPlatform = process.platform
     console.log('[INFO] Scraper running on platform: ', osPlatform); 
 
     console.log("[INFO] : start puppeteer");
