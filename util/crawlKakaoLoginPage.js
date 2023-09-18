@@ -1,4 +1,5 @@
-import puppeteer from "puppeteer";
+// import puppeteer from "puppeteer";
+import puppeteer from "puppeteer-core";
 
 async function crawlKakaoLoginPage(finalUrl) {
   let browser;
