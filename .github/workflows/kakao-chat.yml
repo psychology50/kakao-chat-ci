@@ -61,7 +61,7 @@ jobs:
               id: determine_event_type_mac
 
             - name: run kakao-chat at Windows
-              if: runner.os == 'macOS'
+              if: runner.os == 'Windows'
               uses: psychology50/kakao-chat-ci@main
               env:
                 KAKAO_CLIENT: ${{ secrets.KAKAO_CLIENT }}
