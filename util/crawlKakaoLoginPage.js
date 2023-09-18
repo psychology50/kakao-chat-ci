@@ -7,6 +7,7 @@ async function crawlKakaoLoginPage(finalUrl) {
     console.log("[INFO] : start puppeteer");
     browser = await puppeteer.launch({
       headless: "new",
+      executablePath: process.env.CHROME_PATH,
     });
     console.log("[INFO] : start new page");
     page = await browser.newPage();
