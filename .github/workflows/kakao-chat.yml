@@ -18,6 +18,9 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
 
+            - name: Setup Chrome
+              uses: browser-actions/setup-chrome@v1
+
             - name: Determine event type and trigger action at Windows
               if: runner.os == 'Windows'
               run: |
@@ -44,6 +47,7 @@ jobs:
               run: |
                 echo "${{steps.determine_event_type_windows.outputs.TITLE}}"
                 echo "${{steps.determine_event_type_windows.outputs.DESC}}"
+                echo "${{ github.workspace }}"
 
             - name: Determine event type and trigger action at macOS
               if: runner.os == 'macOS' 
