@@ -8,6 +8,7 @@ async function crawlKakaoLoginPage(finalUrl) {
     browser = await puppeteer.launch({
       headless: "new",
     });
+    print("[INFO] : start new page");
     page = await browser.newPage();
     console.log("[INFO] : start LoginPage");
     await page.goto(finalUrl);
