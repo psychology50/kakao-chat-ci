@@ -10,8 +10,8 @@ async function crawlKakaoLoginPage(finalUrl) {
 
     const chromePathWithQuotes = process.env.CHROME_PATH;
     const chromePathWithoutQuotes = chromePathWithQuotes.replace(/'/g, '');
-    console.log("[INFO] pasing chrome path : " + chromePathWithoutQuotes)
-    console.log("[INFO] process.cwd() : " + process.cwd())
+    // console.log("[INFO] pasing chrome path : " + chromePathWithoutQuotes)
+    // console.log("[INFO] process.cwd() : " + process.cwd())
 
     console.log("[INFO] : start puppeteer");
     let puppeteer, chromePath;
@@ -25,7 +25,7 @@ async function crawlKakaoLoginPage(finalUrl) {
       chromePath = path.relative(process.cwd(), chromePathWithoutQuotes);
     }
     
-    console.log("[INFO] : Chrome Relative Path : " + chromePath);
+    // console.log("[INFO] : Chrome Relative Path : " + chromePath);
     browser = await puppeteer.launch({
       headless: "new",
       executablePath: chromePath,
