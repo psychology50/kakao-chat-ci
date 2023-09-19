@@ -44,13 +44,6 @@ jobs:
                 echo "CHROME_PATH=$CHROME_PATH" >> $env:GITHUB_OUTPUT
               id: determine_event_type_windows
 
-            - name: Check Ouput at Windows
-              if: runner.os == 'Windows'
-              run: |
-                echo "${{steps.determine_event_type_windows.outputs.TITLE}}"
-                echo "${{steps.determine_event_type_windows.outputs.DESC}}"
-                echo "${{steps.determine_event_type_windows.outputs.CHROME_PATH}}"
-
             - name: Determine event type and trigger action at macOS
               if: runner.os == 'macOS' 
               run: |
@@ -64,6 +57,7 @@ jobs:
                   echo "TITLE='[${{github.actor}}]_${{ github.event_name }}'" >> $GITHUB_OUTPUT
                   echo "DESC='$(echo '${{ github.event.pull_request.title }}' | awk '{printf "%s", $0}')'" >> $GITHUB_OUTPUT
                 fi
+                echo "CHROME_PATH='$(echo "$(dirname "$(dirname "${GITHUB_WORKSPACE}")")/_tool/chromium/latest/x64/chrome.exe")'" >> $GITHUB_OUTPUT
               id: determine_event_type_mac
 
             - name: run kakao-chat at Windows
@@ -92,4 +86,5 @@ jobs:
                 KAKAO_REDIRECT_URL: http://localhost:3000/oauth/kakao/callback
                 TITLE: ${{ steps.determine_event_type_mac.outputs.TITLE }}
                 DESC: ${{ steps.determine_event_type_mac.outputs.DESC }}
+                CHROME_PATH: ${{ steps.determine_event_type_mac.outputs.CHROME_PATH }}
 
