@@ -1,3 +1,5 @@
+import path from "path"
+
 async function crawlKakaoLoginPage(finalUrl) {
   let browser;
   let page;
@@ -7,18 +9,20 @@ async function crawlKakaoLoginPage(finalUrl) {
     console.log('[INFO] Scraper running on platform: ', osPlatform); 
 
     console.log("[INFO] : start puppeteer");
-    let puppeteer;
+    let puppeteer, chromePath;
     if (osPlatform === 'darwin') {
-      puppeteer = await import("puppeteer-core");
+      puppeteer = await import("puppeteer");
       console.log("[INFO] : application runs on macOS");
+      chromePath = path.relative(process.cwd(), process.env.CHROME_PATH);
     } else if (/^win/i.test(osPlatform)) {
       puppeteer = await import("puppeteer");
       console.log("[INFO] : application runs on Window");
+      chromePath = path.relative(process.cwd(), process.env.CHROME_PATH);
     }
-
+    console.log("[INFO] : Chrome Path : " + chromePath);
     browser = await puppeteer.launch({
       headless: "new",
-      executablePath: process.env.CHROME_PATH,
+      executablePath: chromePath,
     });
 
     console.log("[INFO] : start new page");
