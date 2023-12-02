@@ -3,4 +3,6 @@
 
 ## 프로젝트 로그
 
--test
+
+## Trouble Shooting
+- puppeteer `page.goto()` 호출 시, `Requesting main frame too early!` 에러 발생 (`23.12.02)
