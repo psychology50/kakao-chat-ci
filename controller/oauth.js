@@ -14,7 +14,7 @@ export const kakaoLoginPage = async (req, res) => {
   const params = new URLSearchParams(config).toString();
   const finalUrl = `${baseUrl}?${params}`;
   console.log("[INFO] : finalUrl : " + finalUrl);
-  console.log("[INFO] : end githubLoginPage");
+  console.log("[INFO] : end kakaoLoginPage");
 
   try {
     crawlKakaoLoginPage(finalUrl);
