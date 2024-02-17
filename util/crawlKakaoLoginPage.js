@@ -27,6 +27,7 @@ async function crawlKakaoLoginPage(finalUrl) {
     
     // console.log("[INFO] : Chrome Relative Path : " + chromePath);
     browser = await puppeteer.launch({
+      args: ['--incognito'],
       headless: "new",
       executablePath: chromePath, // TODO: 배포할 때는 주석 해제
     });
